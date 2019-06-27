@@ -40,8 +40,8 @@ Resources:
                 !Sub "${EnvironmentName}-VPCID"
             SecurityGroupIngress:
             - IpProtocol: tcp
-              FromPort: 8080
-              ToPort: 8080
+              FromPort: 80
+              ToPort: 80
               CidrIp: 0.0.0.0/0
             - IpProtocol: tcp
               FromPort: 22
@@ -64,10 +64,10 @@ Resources:
               apt-get install apache2 -y
               sudo systemctl start apache2.service
               cd /var/www/html
-              aws s3 cp s3://dmm-lesson3/udacity-starter-website.zip .
-              unzip -o udacity-starter-website.zip
+              sudo echo "Hello World" > index.html
+              #sudo aws s3 cp s3://dmm-lesson3/udacity-starter-website.zip .
+              #sudo unzip -o udacity-starter-website.zip
           ImageId: ami-005bdb005fb00e791
-          #IamInstanceProfile: !Ref ProfileWithRolesForOurApp
           SecurityGroups:
           - Ref: WebServerSecGroup
           InstanceType: t3.small
@@ -84,7 +84,7 @@ Resources:
           HealthCheckProtocol: HTTP
           HealthCheckTimeoutSeconds: 8
           HealthyThresholdCount: 2
-          Port: 8080
+          Port: 80
           Protocol: HTTP
           UnhealthyThresholdCount: 5
           VpcId: 
